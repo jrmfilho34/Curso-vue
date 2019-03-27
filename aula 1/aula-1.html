@@ -5,33 +5,43 @@
 	<meta charset="utf-8">
 	<title>aula 1</title>
 </head>
-<style>
-	.red{
-		color:red;
-	}
-	.green{
-		color: green;
-	}
-</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
+	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-	    <img v-bind:src="imagem">
-	    <p :class="classHTML">Engine spook modem warehouse grenade San Francisco knife tower nodality face forwards futurity. 3D-printed rebar lights sensory soul-delay neon tiger-team decay corporation advert. Jeans pistol futurity weathered San Francisco boy shoes otaku neon savant bridge sunglasses tanto free-market crypto. Human corporation bridge gang Chiba table cardboard garage shoes camera rebar spook rain hacker. Network soul-delay garage narrative hacker motion franchise rain neural lights meta-cardboard 3D-printed katana modem weathered. Alcohol rifle courier otaku A.I. apophenia industrial grade. BASE jump tube Legba tanto digital-ware rain warehouse order-flow pre-knife market tiger-team.</p>
+	    <button class="btn" v-bind:class="btnLimpar" v-bind:style="sl">Limpar</button>
+	    <button class="btn" v-bind:class="btnEnviar" v-bind:style="sv">Enviar</button>
 	</div>
-
+</div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 	var app = new Vue({
 		el:'#app',
 		data:{
 			titulo:"aula 1- apreendendo Vue js!",
-			imagem: "https://11m5ki43y82budjol1gjvv5s-wpengine.netdna-ssl.com/wp-content/uploads/2018/05/Vue.js-cta-main.jpg",
-			classHTML: "green"
-
+			btnLimpar:{
+				'btn-danger':true,
+				'btn-sm':true
+			},
+			btnEnviar:[
+			   'btn-success','btn-sm'
+			],
+			sl:{
+				'font-size':'10px',
+				'color': 'black'
+			},
+			sv:{
+				'font-size':'10px',
+				'color': 'black'
+			}
+			
 		}
 	});
 </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
 
@@ -43,4 +53,12 @@
    v-for = for normal
    v-model = reatividade, escreve em tempo real
    v-bind = torna elementos do html um elemento dinamico, da para colocar só :
+   Objeto:		btnLimpar:{
+				'btn-danger':true, 
+				'btn-sm':true
+			},
+	Array:		btnEnviar:[
+			   'btn-success','btn-sm'
+			]
+			
 -->
