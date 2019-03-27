@@ -7,18 +7,10 @@
 </head>
 <body>
 	<div id="app" >
-		<h1 v-if="status">{{ titulo}}</h1>
-		<h1 v-else> Não existe texto</h1>
-		<h1 v-show="status">{{ titulo}}</h1>
-
-		<div v-if="usuario.id == 1">
-			Id:{{ usuario.id}}<br>
-			Nome:{{ usuario.nome}}<br>
-			Profissão: {{ usuario.profissao}}
-		</div>
-        <div v-else>
-        	<p>Não existe usuario cadastrado</p>
-        </div>
+	    <h1>{{titulo}}</h1>
+	    <ul>
+	    	<li v-for="(item,index) in linguagens">{{index}} - {{ item.nome }}</li>
+	    </ul>
 	</div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
@@ -26,11 +18,13 @@
 		el:'#app',
 		data:{
 			titulo:"aula 1- apreendendo Vue js!",
-			usuario:{
-				id:2,
-				nome:"Miliano",
-				profissao:"Engenheiro"
-			}
+			linguagens:[
+				{nome:"javascript"},
+				{nome:"PHP"},
+				{nome:"C#"},
+				{nome:"Python"},
+				{nome:"Java"},
+			]
 		}
 	});
 </script>
@@ -42,5 +36,6 @@
    v-if = funciona com true e false.
    v-show = funciona com true e false
    A diferença entre v-if e v-show é que, no v-show o código apenas esconde o conteudo aparecendo no código fonte o conteudo: display:nome;
+   v-for aula 4
 
 -->
