@@ -5,41 +5,19 @@
 	<meta charset="utf-8">
 	<title>aula 1</title>
 </head>
+<style>
+	.red{
+		color:red;
+	}
+	.green{
+		color: green;
+	}
+</style>
 <body>
 	<div id="app" >
-	    <h1>{{titulo}}</h1>
-	    <ul>
-	    	<li v-for="(item,index) in linguagens">{{index}} - {{ item.nome }}</li>
-	    </ul>
-	    <label>Nome</label>
-	    <input type="text" v-model="nome">
-	    <div>{{ nome}}</div>
-	    <hr>
-	    <label>Nome</label><br>
-	    <input type="text" v-model="a"><br>
-	    <label>Telefone</label><br>
-	    <input type="text" v-model="telefone" name=""><br>
-	    <label>Deseja receber nossa novidades?</label><br>
-	    <input type="radio" value="sim" v-model="novidade" name="">Sim
-	    <input type="radio" value="nao" v-model="novidade" name="">Não<br>
-	    <label>Interesses</label><br>
-	    <input type="checkbox" v-model="interesses" value="futebol">Futebol<br>
-	    <input type="checkbox" v-model="interesses" value="formula 1">Formula 1<br>
-	    <input type="checkbox" v-model="interesses" value="corrida">Corrida<br>
-	    <label>Como nos conheceu?</label>
-	    <select v-model="conheceu">
-	    <option value=""></option>
-	    <option value="google">Google</option>
-	    <option value="tv">Tv</option>
-	    <option value="revista">Revista</option>
-	    </select>
-        <hr>
-        Nome: {{nome}}<br>
-        Telefone: {{telefone}}<br>
-        Novidades: {{novidade}}<br>
-        Interesses: {{interesses}}<br>
-        Como nos conheceu: {{conheceu}}<br>
-
+	    <h1>{{ titulo}}</h1>
+	    <img v-bind:src="imagem">
+	    <p :class="classHTML">Engine spook modem warehouse grenade San Francisco knife tower nodality face forwards futurity. 3D-printed rebar lights sensory soul-delay neon tiger-team decay corporation advert. Jeans pistol futurity weathered San Francisco boy shoes otaku neon savant bridge sunglasses tanto free-market crypto. Human corporation bridge gang Chiba table cardboard garage shoes camera rebar spook rain hacker. Network soul-delay garage narrative hacker motion franchise rain neural lights meta-cardboard 3D-printed katana modem weathered. Alcohol rifle courier otaku A.I. apophenia industrial grade. BASE jump tube Legba tanto digital-ware rain warehouse order-flow pre-knife market tiger-team.</p>
 	</div>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -48,18 +26,8 @@
 		el:'#app',
 		data:{
 			titulo:"aula 1- apreendendo Vue js!",
-			linguagens:[
-				{nome:"javascript"},
-				{nome:"PHP"},
-				{nome:"C#"},
-				{nome:"Python"},
-				{nome:"Java"},
-			],
-			nome:"",
-			telefone:"",
-			novidade:"",
-			interesses:[],
-			conheceu:""
+			imagem: "https://11m5ki43y82budjol1gjvv5s-wpengine.netdna-ssl.com/wp-content/uploads/2018/05/Vue.js-cta-main.jpg",
+			classHTML: "green"
 
 		}
 	});
@@ -72,6 +40,7 @@
    v-if = funciona com true e false.
    v-show = funciona com true e false
    A diferença entre v-if e v-show é que, no v-show o código apenas esconde o conteudo aparecendo no código fonte o conteudo: display:nome;
-   v-for aula 4
-   v-model
+   v-for = for normal
+   v-model = reatividade, escreve em tempo real
+   v-bind = torna elementos do html um elemento dinamico, da para colocar só :
 -->
