@@ -11,7 +11,37 @@
 	    <ul>
 	    	<li v-for="(item,index) in linguagens">{{index}} - {{ item.nome }}</li>
 	    </ul>
+	    <label>Nome</label>
+	    <input type="text" v-model="nome">
+	    <div>{{ nome}}</div>
+	    <hr>
+	    <label>Nome</label><br>
+	    <input type="text" v-model="a"><br>
+	    <label>Telefone</label><br>
+	    <input type="text" v-model="telefone" name=""><br>
+	    <label>Deseja receber nossa novidades?</label><br>
+	    <input type="radio" value="sim" v-model="novidade" name="">Sim
+	    <input type="radio" value="nao" v-model="novidade" name="">Não<br>
+	    <label>Interesses</label><br>
+	    <input type="checkbox" v-model="interesses" value="futebol">Futebol<br>
+	    <input type="checkbox" v-model="interesses" value="formula 1">Formula 1<br>
+	    <input type="checkbox" v-model="interesses" value="corrida">Corrida<br>
+	    <label>Como nos conheceu?</label>
+	    <select v-model="conheceu">
+	    <option value=""></option>
+	    <option value="google">Google</option>
+	    <option value="tv">Tv</option>
+	    <option value="revista">Revista</option>
+	    </select>
+        <hr>
+        Nome: {{nome}}<br>
+        Telefone: {{telefone}}<br>
+        Novidades: {{novidade}}<br>
+        Interesses: {{interesses}}<br>
+        Como nos conheceu: {{conheceu}}<br>
+
 	</div>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 	var app = new Vue({
@@ -24,7 +54,13 @@
 				{nome:"C#"},
 				{nome:"Python"},
 				{nome:"Java"},
-			]
+			],
+			nome:"",
+			telefone:"",
+			novidade:"",
+			interesses:[],
+			conheceu:""
+
 		}
 	});
 </script>
@@ -37,5 +73,5 @@
    v-show = funciona com true e false
    A diferença entre v-if e v-show é que, no v-show o código apenas esconde o conteudo aparecendo no código fonte o conteudo: display:nome;
    v-for aula 4
-
+   v-model
 -->
