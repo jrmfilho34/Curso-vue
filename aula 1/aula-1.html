@@ -9,9 +9,8 @@
 	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-	    <ul>
-	    	<li v-for="usuario in usuarios"> {{usuario.nome | toUpperCase() | truncate('2')}} </li>
-	    </ul>
+	    {{fullName}}
+	 
 	</div>
 </div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -20,26 +19,28 @@
 		el:'#app',
 		data:{
 			titulo:"aula 1- apreendendo Vue js!",
-			usuarios:[
-			{nome: 'miliano'},
-			{nome: 'Leonardo'},
-			{nome: 'Bernardo'}
-			]
+			firstName:"",
+			lastName:""
+	
+		
 		},
 		filters:{
-            toUpperCase(str,parametro1,parametro2){
-            	return str.toUpperCase();
-            },
-            truncate(str, length){
-            	var saida = str;
-            	if (saida.length > length) {
-            		saida = str.substring(0,length) + ' deu certo';
-            	}
-            	return saida;
-            }
+		},
+		computed:{
+		  fullName(){
+		  	return this.firstName + ' ' +this.lastName;
+		  }
+
+		},
+		watch:{
+		  firstName(newValue){
+		   	this.updateUser();
+		   },
 		},
         methods:{
-          
+          updateUser(){
+          	console.log("deu certo");
+          }
 
         },
 
@@ -78,6 +79,12 @@ Aula 7:
 Aula 9:
     filters: customizar as variaiveis,tem que criar uma funcao que é invocada no momento da chamanda da variavel, 
     Se necessário fazer um filtro de variaveis.
-Aula 
+Aula 10: computed e watch
+    São observadores de quando uma variavel é alterada,
+
+    A funcao watch armazena as variaveis anterior, função muito útil.
+    computed: se as variaveis forem alteradas, as função serao executadas.
+Aula 11: lifecycle hooks
+
 
 -->
