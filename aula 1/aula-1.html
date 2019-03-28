@@ -9,40 +9,36 @@
 	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-	    {{fullName}}
-	 
 	</div>
 </div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 	var app = new Vue({
 		el:'#app',
-		data:{
-			titulo:"aula 1- apreendendo Vue js!",
-			firstName:"",
-			lastName:""
-	
-		
-		},
-		filters:{
-		},
-		computed:{
-		  fullName(){
-		  	return this.firstName + ' ' +this.lastName;
-		  }
-
-		},
-		watch:{
-		  firstName(newValue){
-		   	this.updateUser();
-		   },
-		},
-        methods:{
-          updateUser(){
-          	console.log("deu certo");
-          }
-
+         
+        beforeCreate(){
+        	console.log('beforeCreate');
+        	console.log('beforeCreate');
         },
+        created(){
+        	console.log('created');
+        },
+        beforeMount(){
+        	console.log('beforeMount');
+        },
+        mounted(){
+        	console.log('mounted');
+        },
+        beforeUpadte(){
+        	console.log('beforeUpadte');
+        },
+        update(){
+        	console.log('update');
+        },
+
+		data:{
+			titulo:"Apreendendo Vue js!",
+		}
 
 	});
 </script>
@@ -85,6 +81,16 @@ Aula 10: computed e watch
     A funcao watch armazena as variaveis anterior, função muito útil.
     computed: se as variaveis forem alteradas, as função serao executadas.
 Aula 11: lifecycle hooks
+    Como funciona o vue.js, são hooks
+        beforeCreate(){},   // não tem acesso as variaveis  // não tem acesso ao DOM
+        created(){},        // tem acesso as variaveis      // não tem acesso ao DOM
+        beforeMount(){},    // tem acesso as variaveis      // tem acesso ao DOM
+        mounted(){},        // tem acesso as variaveis      // tem acesso ao DOM
+        beforeUpadte(){},   // tem acesso as variaveis      // tem acesso ao DOM
+        update(){},         // tem acesso as variaveis      // tem acesso ao DOM
+    mounted() -> tem acesso ao html
+
+Aula 12: Componentes
 
 
 -->
