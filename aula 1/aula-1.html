@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 	<meta charset="utf-8">
@@ -10,9 +9,9 @@
 	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-	    <form action="http://google.com">
-	       <button class="btn btn-success" v-on:click.prevent.stop="enviar()">Enviar</button>
-	    </form>
+	    <ul>
+	    	<li v-for="usuario in usuarios"> {{usuario.nome | toUpperCase() | truncate('2')}} </li>
+	    </ul>
 	</div>
 </div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -21,11 +20,26 @@
 		el:'#app',
 		data:{
 			titulo:"aula 1- apreendendo Vue js!",
+			usuarios:[
+			{nome: 'miliano'},
+			{nome: 'Leonardo'},
+			{nome: 'Bernardo'}
+			]
+		},
+		filters:{
+            toUpperCase(str,parametro1,parametro2){
+            	return str.toUpperCase();
+            },
+            truncate(str, length){
+            	var saida = str;
+            	if (saida.length > length) {
+            		saida = str.substring(0,length) + ' deu certo';
+            	}
+            	return saida;
+            }
 		},
         methods:{
-        	enviar(){
-        		alert("deu certo");
-        	}
+          
 
         },
 
@@ -37,13 +51,20 @@
 </body>
 </html>
 
-<!-- o que são diretivas? Conjuntos de normas, instruções que deve alguém proceder
+<!-- 
+Aula 1: 
+   o que são diretivas? Conjuntos de normas, instruções que deve alguém proceder
+Aula 2:
    no vue.js as diretivas são iniciadas com v, seguidas de -. Ex: v-model, v-if.
+Aula 3:
    v-if = funciona com true e false.
    v-show = funciona com true e false
    A diferença entre v-if e v-show é que, no v-show o código apenas esconde o conteudo aparecendo no código fonte o conteudo: display:nome;
+Aula 4:
    v-for = for normal
+Aula 5:
    v-model = reatividade, escreve em tempo real
+Aula 6:
    v-bind = torna elementos do html um elemento dinamico, da para colocar só :
    Objeto:		btnLimpar:{
 				'btn-danger':true, 
@@ -52,5 +73,11 @@
 	Array:		btnEnviar:[
 			   'btn-success','btn-sm'
 			]
+Aula 7:
     v-on: tem modificadores(prevent.stop, para chamar os metodos com um click
+Aula 9:
+    filters: customizar as variaiveis,tem que criar uma funcao que é invocada no momento da chamanda da variavel, 
+    Se necessário fazer um filtro de variaveis.
+Aula 
+
 -->
