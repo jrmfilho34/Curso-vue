@@ -9,66 +9,34 @@
 	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-	    <input-form></input-form>
-	    <my-list></my-list>
+	    <card>
+	    	<div>Marketing shanty town drugs papier-mache tube otaku military-grade woman DIY savant nodal point shoes-ware network rain. Engine franchise city courier network physical beef noodles denim sign. 3D-printed 8-bit geodesic apophenia motion refrigerator weathered gang. Euro-pop tube refrigerator disposable monofilament silent marketing. Pre-woman knife systemic neon papier-mache corporation DIY lights marketing math-garage San Francisco franchise. Bomb receding A.I. shoes dolphin rain voodoo god face forwards sentient tanto Kowloon plastic Legba monofilament man. Kanji shrine decay tiger-team otaku A.I. camera futurity fetishism smart-corrupted katana render-farm boat. </div>
+	    </card>
 	
 	</div>
 </div>
-  <template id="form">
-	    <div class="card">
-	    	<div class="card-body">
-		    	<div class="form-group">
-		    		<label>Título</label>
-		    		<input v-model="title" class="form-control"></input>
-		    	</div>
-		    	<button @click.stop.prevent="submit" class="btn btn-success"> enviar</button>
-	    	</div>
-	    </div>
-	   </template>
-	   <template id="list">
-		<ul class="list-group">
-		  <li v-for="item in list" class="list-group-item">{{item.title}}</li>
-		</ul>
-		</template>
+  <template id="card">
+		<div class="card" style="width: 18rem;">
+		  <img src="https://www.sitepor500.com.br/arquivos/criacao-site-florianopolis.png" class="card-img-top" alt="...">
+		  <div class="card-body">
+		  	<slot></slot>
+		    <h5 class="card-title">Card title</h5>
+		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		    <a href="#" class="btn btn-primary">Go somewhere</a>
+		  </div>
+		</div>
+  </template>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    Vue.component('input-form',{
-    	template:'#form',
+    Vue.component('card',{
+    	template:'#card',
     	data(){
     		return{
     			title:'',
     		}
-    	},
-    	methods:{
-    		submit(){
-    			this.$eventHub.$emit('submit',this.title);
-    			
-    		}
     	}
     });
-
-    Vue.component('my-list',{
-    	template:'#list',
-    	created(){
-    		var vm = this;
-    		this.$eventHub.$on('submit', function(title){
-                 if (title) {
-    				vm.list.push({title:title});
-    			}
-    		});
-    	},
-    	data(){
-    		return {
-    			list:[
-    			   {title: "comprar peixe"},
-    			]
-    		}
-    	}
-    });
-
-    //var eventBus = new Vue();
-    Vue.prototype.$eventHub = new Vue();
 	var app = new Vue({
 		el:'#app',
 		data:{
@@ -156,4 +124,7 @@ Aula 14: Enviando dados entre componentes
 
       falador: eventBus.$emit('submit',this.title);
       escuta: eventBus.$on('submit', function());
+
+ Aula 16: Slots
+	  Serve para inserir conteudo no componente se usar funções
 -->
