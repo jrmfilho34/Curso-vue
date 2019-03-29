@@ -8,39 +8,28 @@
 <body>
 	<div class="container">
 	<div id="app" >
-	    <h1>{{ titulo}}</h1>
-	    <card>
-	    	<div>Marketing shanty town drugs papier-mache tube otaku military-grade woman DIY savant nodal point shoes-ware network rain. Engine franchise city courier network physical beef noodles denim sign. 3D-printed 8-bit geodesic apophenia motion refrigerator weathered gang. Euro-pop tube refrigerator disposable monofilament silent marketing. Pre-woman knife systemic neon papier-mache corporation DIY lights marketing math-garage San Francisco franchise. Bomb receding A.I. shoes dolphin rain voodoo god face forwards sentient tanto Kowloon plastic Legba monofilament man. Kanji shrine decay tiger-team otaku A.I. camera futurity fetishism smart-corrupted katana render-farm boat. </div>
-	    </card>
-	
+	    <h1>{{ titulo}}</h1>	
+	    <button @click.stop.prevent="getUsers()" class="btn btn-default">Enviar</button>
 	</div>
 </div>
-  <template id="card">
-		<div class="card" style="width: 18rem;">
-		  <img src="https://www.sitepor500.com.br/arquivos/criacao-site-florianopolis.png" class="card-img-top" alt="...">
-		  <div class="card-body">
-		  	<slot></slot>
-		    <h5 class="card-title">Card title</h5>
-		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-		    <a href="#" class="btn btn-primary">Go somewhere</a>
-		  </div>
-		</div>
-  </template>
-
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    Vue.component('card',{
-    	template:'#card',
-    	data(){
-    		return{
-    			title:'',
-    		}
-    	}
-    });
+	var mixin = {
+		methods:{
+			getUsers(){
+				// rotina de programação localizar usuarios
+				alert('esta funcionando');
+			}
+		}
+	}
 	var app = new Vue({
 		el:'#app',
+		mixins:[mixin],
 		data:{
 			titulo:"Apreendendo Vue js!",
+		},
+		methods:{
+			
 		}
 
 	});
@@ -126,5 +115,5 @@ Aula 14: Enviando dados entre componentes
       escuta: eventBus.$on('submit', function());
 
  Aula 16: Slots
-	  Serve para inserir conteudo no componente se usar funções
+	  Mixins são para vc armazenar comportamentos que vc usa em mais de um componente. 
 -->
