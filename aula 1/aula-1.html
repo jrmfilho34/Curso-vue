@@ -10,6 +10,7 @@
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
 	    <nav-bar></nav-bar>
+	    <menu-bar :items="[{label:'Menu 1'},{label: 'Menu 2'}]"></menu-bar>
 	</div>
 </div>
 <template id="nav">
@@ -19,33 +20,47 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-      <menu-bar></menu-bar>
+      <menu-bar v-bind:items="topNav" @emit-click="getLink"></menu-bar>
   </div>
 </nav>
 </template>
 <template id="menu">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      <li v-for="(item,index) in items" class="nav-item">
+        <a @click.stop.prevent="emitClick(index)" class="nav-link" href="#">{{ item.label }}</a>
       </li>
     </ul>
 </template>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 	Vue.component('nav-bar',{
-      template:"#nav"
+      template:"#nav",
+      data(){
+      	return{
+      		topNav:[{label:'Home'},{label:'Features'},{label:'Pricing'},{label:'Disabled'}]
+      	}
+      },
+      methods:{
+      	getLink(index){
+          alert(this.topNav[index].label);
+      	}
+      }
+      
 	});
 	Vue.component('menu-bar',{
-      template:"#menu"
+      template:"#menu",
+      props:{
+      	items:{
+	      	//type: String|Array|Object|Boolean,
+	      	type: Array,
+	      	requerid: true
+        }
+      },
+      methods:{
+      	emitClick(index){
+      		this.$emit('emit-click',index);
+      	}
+      }
 	});
 	var app = new Vue({
 		el:'#app',
@@ -108,4 +123,24 @@ Aula 12 e 13: Componentes pais e filhos
          Vue.component('menu-bar',{
       template:"#menu"
 	});
+Aula 14: Enviando dados entre componentes
+    props: lista de propriedades
+    para passar dados de um componente, tem que ser por uma função:     
+    data(){
+      	return{
+      		topNav:[{label:'Home'},{label:'Features'},{label:'Pricing'},{label:'Disabled'}]
+      	}
+      }
+      declara a variavel no props: props:['items'],
+      ENVIAR DADOS DO COMPONENTE PAI PARA O COMPONENTE FILHO:
+      pai: nav-bar, filho: menu-bar
+      1: declara no componente pai uma função data() com o nome da variavei e um array de informações,
+      2: declara no componente filho a função props() com o tipo da variavel e se é requerida.
+      3: usar o v for ou outras diretivas
+      via props
+
+      ENVIAR DADOS DO COMPONENTE FILHO PARA O COMPONENTE PAI:
+      1: cria um função de clicar no componente filho, que chama uma função de emição(nativa do vue)
+      2: criar uma v-on que escuta emitClick, com uma função no componente pai que é chamada.
+      via emite
 -->
