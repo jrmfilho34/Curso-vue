@@ -9,59 +9,66 @@
 	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-	    <nav-bar></nav-bar>
-	    <menu-bar :items="[{label:'Menu 1'},{label: 'Menu 2'}]"></menu-bar>
+	    <input-form></input-form>
+	    <my-list></my-list>
+	
 	</div>
 </div>
-<template id="nav">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-      <menu-bar v-bind:items="topNav" @emit-click="getLink"></menu-bar>
-  </div>
-</nav>
-</template>
-<template id="menu">
-    <ul class="navbar-nav">
-      <li v-for="(item,index) in items" class="nav-item">
-        <a @click.stop.prevent="emitClick(index)" class="nav-link" href="#">{{ item.label }}</a>
-      </li>
-    </ul>
-</template>
+  <template id="form">
+	    <div class="card">
+	    	<div class="card-body">
+		    	<div class="form-group">
+		    		<label>Título</label>
+		    		<input v-model="title" class="form-control"></input>
+		    	</div>
+		    	<button @click.stop.prevent="submit" class="btn btn-success"> enviar</button>
+	    	</div>
+	    </div>
+	   </template>
+	   <template id="list">
+		<ul class="list-group">
+		  <li v-for="item in list" class="list-group-item">{{item.title}}</li>
+		</ul>
+		</template>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-	Vue.component('nav-bar',{
-      template:"#nav",
-      data(){
-      	return{
-      		topNav:[{label:'Home'},{label:'Features'},{label:'Pricing'},{label:'Disabled'}]
-      	}
-      },
-      methods:{
-      	getLink(index){
-          alert(this.topNav[index].label);
-      	}
-      }
-      
-	});
-	Vue.component('menu-bar',{
-      template:"#menu",
-      props:{
-      	items:{
-	      	//type: String|Array|Object|Boolean,
-	      	type: Array,
-	      	requerid: true
-        }
-      },
-      methods:{
-      	emitClick(index){
-      		this.$emit('emit-click',index);
-      	}
-      }
-	});
+    Vue.component('input-form',{
+    	template:'#form',
+    	data(){
+    		return{
+    			title:'',
+    		}
+    	},
+    	methods:{
+    		submit(){
+    			this.$eventHub.$emit('submit',this.title);
+    			
+    		}
+    	}
+    });
+
+    Vue.component('my-list',{
+    	template:'#list',
+    	created(){
+    		var vm = this;
+    		this.$eventHub.$on('submit', function(title){
+                 if (title) {
+    				vm.list.push({title:title});
+    			}
+    		});
+    	},
+    	data(){
+    		return {
+    			list:[
+    			   {title: "comprar peixe"},
+    			]
+    		}
+    	}
+    });
+
+    //var eventBus = new Vue();
+    Vue.prototype.$eventHub = new Vue();
 	var app = new Vue({
 		el:'#app',
 		data:{
@@ -143,4 +150,10 @@ Aula 14: Enviando dados entre componentes
       1: cria um função de clicar no componente filho, que chama uma função de emição(nativa do vue)
       2: criar uma v-on que escuta emitClick, com uma função no componente pai que é chamada.
       via emite
+
+ Aula 15: como trafegar dados entre componentes distintos
+      instanciar o eventBus || instanciar o eventHub
+
+      falador: eventBus.$emit('submit',this.title);
+      escuta: eventBus.$on('submit', function());
 -->
