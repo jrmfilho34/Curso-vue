@@ -11,24 +11,23 @@
 	    <h1>{{ titulo}}</h1>	
 	    <button @click.stop.prevent="getUsers()" class="btn btn-default">Enviar</button>
 	    <ul>
-	    	<li v-for="user in users">{{user}}</li>
+	    	<li v-for="user in users">{{user.name}}</li>
 	    </ul>
 	</div>
 </div>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 	var mixin = {
 		methods:{
 			getUsers(){
-				var url = 'http://jsonplaceholder.typicode.com';
-				this.$http.get(url).then(function(r){
-					this.users = r.body;
-				},function(error){
-					alert(error);
-				}).finally(function(){
-					alert('finally');
-				});
+				var url = 'http://jsonplaceholder.typicode.com/users';
+				var vm = this;
+                axios.get(url).then(function(r){
+                    vm.users = r.data;
+                });
+
 			}
 		}
 	}
@@ -51,7 +50,7 @@
 </body>
 </html>
 
-<!-- 
+ 
 Aula 1: 
    o que são diretivas? Conjuntos de normas, instruções que deve alguém proceder
 Aula 2:
@@ -128,4 +127,14 @@ Aula 14: Enviando dados entre componentes
  Aula 16: Slots
 	  Mixins são para vc armazenar comportamentos que vc usa em mais de um componente. 
  Aula 18: Ajax com vue-resource
--->
+ 				// this.$http.get(url).then(function(r){
+				// 	this.users = r.body;
+				// },function(error){
+				// 	alert(error);
+				// }).finally(function(){
+				// 	alert('finally');
+				// });
+ Aula 19: Ajax com axios
+      axios.get(url).then(function(r){
+                    vm.users = r.data;
+                });
