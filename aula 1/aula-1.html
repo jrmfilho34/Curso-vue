@@ -17,16 +17,34 @@
 	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-	    <router-link to="/transformers">Transformers</router-link>
-	    <router-link to="/game">Game</router-link>
+	    <router-link :to="{ name:'transformers'}">Transformers</router-link>
+	    <router-link :to="{ name:'game'}">Game</router-link>
 	    <router-view></router-view>
 	</div>
 </div>
+<template id="Tcontent">
+	<div>
+		<h3>Conteudo transformers</h3>
+		{{ $route.params.name }}
+		<p>Singularity face forwards network bridge stimulate pen dolphin into. Skyscraper futurity kanji industrial grade military-grade alcohol physical saturation point semiotics systema. Smart-receding weathered sign DIY silent skyscraper ablative augmented reality. Vehicle rifle neural assault systema vinyl lights corrupted city. </p>
+	</div>
+	
+</template>
 <template id="transformers">
 	<div>
-		<ul>
-			<li v-for="item in transformers">{{item.name}}</li>
-		</ul>
+		<div class="row">
+			<div class="col">
+				<ul>
+					<li v-for="item in transformers"><router-link :to="{name:'Tcontent',params:{name: item.slug}}">{{item.name}}</router-link></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<router-view></router-view>
+			</div>
+		</div>
+	
 	</div>
 </template>
 <template id="game">
@@ -47,11 +65,11 @@
         data(){
         	return{
 			transformers:[
-				{name:'Transformers Miliano'},
-				{name:'Transformers Leonardo'},
-				{name:'Transformers Leticia'},
-				{name:'Transformers Top'},
-				{name:'Transformers piupiu'}
+				{name:'Transformers Miliano', slug:'transformers-miliano'},
+				{name:'Transformers Leonardo',slug:'transformers-leonardo'},
+				{name:'Transformers Leticia',slug:'transformers-leticia'},
+				{name:'Transformers Top',slug:'transformers-top'},
+				{name:'Transformers piupiu',slug:'transformers-piupiu'}
 			],
 		  }
 		},
@@ -73,10 +91,18 @@
 		},
 
     });
+    var Tcontent = Vue.component('Tcontent',{
+    	template:"#Tcontent",
+    });
     var router = new VueRouter({
+    	mode:'history',
 		routes:[
-			{path: '/transformers',component: Transformers},
-			{path: '/game',component: Game},
+			{path: '/transformers',name:'transformers', component: Transformers,
+             children:[
+	             {path:':name', name:'Tcontent',component:Tcontent},
+             ]
+		    },
+			{path: '/game',name:'game',component: Game},
 		]
 	});
 	
@@ -227,5 +253,8 @@ Aula 22: criar uma rota
 		<router-link to="/transformers">Transformers</router-link>
 		<router-link to="/game">Game</router-link>
 		<router-view></router-view>
-	
+Aula 23: dicas rotas
+     mode:'history'
+     name:'nomedarota'
+Aula 24: Subrotas
 -->
