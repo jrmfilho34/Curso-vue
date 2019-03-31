@@ -17,18 +17,9 @@
 	<div class="container">
 	<div id="app" >
 	    <h1>{{ titulo}}</h1>
-
-	    <select v-model="movie">
-	    	<option value="transformers">transformers</option>
-	    	<option value="game">game</option>
-	    </select>
-	    <transition name="fade">
-	     <component :is="movie"></componente>	
-	    </transition>
-	    <button @click.stop.prevent="getUsers()" class="btn btn-default">Enviar</button>
-	    <ul ref="users">
-	    	<li v-for="(item,index) in users" :key="item.name"><a href="#" @click.stop.prevent="remove(index)">{{item.name}}</a></li>
-	    </ul>
+	    <router-link to="/transformers">Transformers</router-link>
+	    <router-link to="/game">Game</router-link>
+	    <router-view></router-view>
 	</div>
 </div>
 <template id="transformers">
@@ -48,8 +39,10 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script>
-	Vue.component('transformers',{
+
+	var Transformers = Vue.component('transformers',{
 		template:"#transformers",
         data(){
         	return{
@@ -65,7 +58,7 @@
 		
 	});
     
-    Vue.component('game',{
+    var Game = Vue.component('game',{
     	template:"#game",
         data(){
         	return{
@@ -80,10 +73,17 @@
 		},
 
     });
+    var router = new VueRouter({
+		routes:[
+			{path: '/transformers',component: Transformers},
+			{path: '/game',component: Game},
+		]
+	});
 	
 
 	var app = new Vue({
 		el:'#app',
+		router,
 		mounted(){
 			console.log(this.$refs);
 		},
@@ -211,4 +211,21 @@ Aula 20: key, ref, slot,
 
 Aula 21: Transições em CSS
     usar dentro do componente
+Aula 22: criar uma rota
+    primeiro passo: importar e instanciar objeto, criar variaveis dos componentes
+    var router = new VueRouter({
+		routes:[
+			{path: '/transformers',component: Transformers},
+			{path: '/game',component: Game},
+		]
+	});
+	segundo passo:
+	var app = new Vue({
+		el:'#app',
+		router,
+	terceiro passo:
+		<router-link to="/transformers">Transformers</router-link>
+		<router-link to="/game">Game</router-link>
+		<router-view></router-view>
+	
 -->
