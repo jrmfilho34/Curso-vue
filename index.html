@@ -36,6 +36,9 @@
 <template id="transformers">
 	<div>
 		<div class="row">
+			<div v-if="sidebar" class="col">
+				Sidebar
+			</div>
 			<div class="col">
 				<ul>
 					<li v-for="item in transformers"><router-link :to="{name:'Tcontent',params:{name: item.slug}}">{{item.name}}</router-link></li>
@@ -72,6 +75,12 @@
 
 	var Transformers = Vue.component('transformers',{
 		template:"#transformers",
+		props:{
+          sidebar:Boolean,
+		},
+		created(){
+			console.log(this.sidebar);
+		},
         data(){
         	return{
 			transformers:[
@@ -112,6 +121,7 @@
 		routes:[
 		    {path: '/', name:'home', redirect:{ name:'Tcontent',params:{name: 'Transformers Leonardo'}}},
 			{path: '/transformers',name:'transformers', component: Transformers,
+			 props:{ sidebar: false},
              children:[
 	             {path:':name', name:'Tcontent',component:Tcontent},
              ]
@@ -284,5 +294,11 @@ Aula 26: rota padrão e error 404
 			{path: '*', name:'error404', component:Error404}
 		redirecionamento
 		  {path: '/', name:'home', redirect:{ name:'Tcontent',params:{name: 'Transformers Leonardo'}}},
+Aula 27: propriedades estáticas
+	       {path: '/transformers',name:'transformers', component: Transformers,
+			 props:{ sidebar: false},
+             children:[
+	             {path:':name', name:'Tcontent',component:Tcontent},
+             ]
      
 -->
