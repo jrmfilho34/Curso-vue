@@ -110,15 +110,11 @@
 	var app = new Vue({
 		el:'#app',
 		router,
-		mounted(){
-			console.log(this.$refs);
-		},
-
+		created(){
+			this.$router.push({ name:'Tcontent',params:{name: 'Transformers Leonardo'}})
+			},
 		data:{
 			titulo:"Apreendendo Vue js!",
-			created(){
-				console.log(this.$router);
-			},
 			users:[
 				{name:'Miliano'},
 				{name:'Leonardo'},
