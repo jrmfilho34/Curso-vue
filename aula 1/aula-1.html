@@ -3,43 +3,107 @@
 <head>
 	<meta charset="utf-8">
 	<title>aula 1</title>
+	<style>
+		.fade-enter-active, .fade-leave-active {
+		   transition: opacity .5s;
+		}
+		.fade-enter, .fade-leave-to /* .fade-leave-active em versões anteriores a 2.1.8 */ {
+		   opacity: 0;
+		}
+	</style>
 </head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
 	<div class="container">
 	<div id="app" >
-	    <h1>{{ titulo}}</h1>	
+	    <h1>{{ titulo}}</h1>
+
+	    <select v-model="movie">
+	    	<option value="transformers">transformers</option>
+	    	<option value="game">game</option>
+	    </select>
+	    <transition name="fade">
+	     <component :is="movie"></componente>	
+	    </transition>
 	    <button @click.stop.prevent="getUsers()" class="btn btn-default">Enviar</button>
-	    <ul>
-	    	<li v-for="user in users">{{user.name}}</li>
+	    <ul ref="users">
+	    	<li v-for="(item,index) in users" :key="item.name"><a href="#" @click.stop.prevent="remove(index)">{{item.name}}</a></li>
 	    </ul>
 	</div>
 </div>
+<template id="transformers">
+	<div>
+		<ul>
+			<li v-for="item in transformers">{{item.name}}</li>
+		</ul>
+	</div>
+</template>
+<template id="game">
+	<div>
+		<ul>
+			<li v-for="item in game">{{item.name}}</li>
+		</ul>
+	</div>
+</template>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-	var mixin = {
-		methods:{
-			getUsers(){
-				var url = 'http://jsonplaceholder.typicode.com/users';
-				var vm = this;
-                axios.get(url).then(function(r){
-                    vm.users = r.data;
-                });
+	Vue.component('transformers',{
+		template:"#transformers",
+        data(){
+        	return{
+			transformers:[
+				{name:'Transformers Miliano'},
+				{name:'Transformers Leonardo'},
+				{name:'Transformers Leticia'},
+				{name:'Transformers Top'},
+				{name:'Transformers piupiu'}
+			],
+		  }
+		},
+		
+	});
+    
+    Vue.component('game',{
+    	template:"#game",
+        data(){
+        	return{
+			game:[
+				{name:'game Miliano'},
+				{name:'game Leonardo'},
+				{name:'game Leticia'},
+				{name:'game Top'},
+				{name:'game piupiu'}
+			],
+		  }
+		},
 
-			}
-		}
-	}
+    });
+	
+
 	var app = new Vue({
 		el:'#app',
-		mixins:[mixin],
+		mounted(){
+			console.log(this.$refs);
+		},
+
 		data:{
 			titulo:"Apreendendo Vue js!",
-			users:[],
+			users:[
+				{name:'Miliano'},
+				{name:'Leonardo'},
+				{name:'Leticia'},
+				{name:'Top'},
+				{name:'piupiu'},
+			],
+			movie:'transformers',
+		
 		},
 		methods:{
-			
+			remove(index){
+				this.users.splice(index,1);
+			}		
 		}
 
 	});
@@ -50,7 +114,7 @@
 </body>
 </html>
 
- 
+ <!--
 Aula 1: 
    o que são diretivas? Conjuntos de normas, instruções que deve alguém proceder
 Aula 2:
@@ -138,3 +202,13 @@ Aula 14: Enviando dados entre componentes
       axios.get(url).then(function(r){
                     vm.users = r.data;
                 });
+
+Aula 20: key, ref, slot,
+     key é um identificador de componentes, torna o programa mais rapido
+     ref serve para buscar elementos html
+     slot 
+     is <component is="transformers"></componente> dá para usar o is para nomear os componentes
+
+Aula 21: Transições em CSS
+    usar dentro do componente
+-->
