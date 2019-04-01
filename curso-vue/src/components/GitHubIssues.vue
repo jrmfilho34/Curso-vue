@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
     <div class="container">
         <h1>Vue.js + Github</h1>
@@ -66,6 +65,9 @@
     import axios from 'axios';
 	export default {
 		name: 'GitHubIssues',
+		created(){
+           this.getLocalData();
+		},
 
 		data() {
 			return {
@@ -86,6 +88,7 @@
 
 				getIssues(){
 					if (this.username && this.repository){
+						localStorage.setItem('getIssues',JSON.stringify({ username: this.username, repository: this.repository}));
 					   this.loader.getIssues = true;
 					   const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues`;
 		                axios.get(url).then((response) => {
@@ -95,6 +98,16 @@
 		                });
 	                }
 				},
+
+				getLocalData(){
+					const localData = JSON.parse(localStorage.getItem('getIssues'));
+					if (localData.username && localData.repository) {
+						this.username = localData.username;
+						this.repository = localData.repository;
+						this.getIssues();
+				    }
+
+				}
 		}
 	};
 </script>
