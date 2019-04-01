@@ -39,13 +39,16 @@
             </thead>
 
             <tbody>
-            	<tr v-if="!!issues.length"
+            	<tr v-if="loader.getIssues">
+            		<td class="text-center" colspan="2"><img src="static\Eclipse.svg"></td>
+            	</tr>
+            	<tr v-if="!!issues.length && !loader.getIssues"
             	v-for="issue in issues"
             	:key="issue.number">
             		<td>{{issue.number}}</td>
             		<td>{{issue.title}}</td>
             	</tr>
-            <tr v-if="!!!issues.length">
+            <tr v-if="!!!issues.length && !loader.getIssues">
                 <td class="text-center" colspan="2">Nenhuma issues encontrada!</td>
             </tr>
             </tbody>
@@ -62,6 +65,9 @@
                 username:'',
                 repository:'',
                 issues:[],
+                loader:{
+                	getIssues:false,
+                }
 			};
 		},
 		methods:{
@@ -72,9 +78,13 @@
 
 			getIssues(){
 				if (this.username && this.repository){
+				this.loader.getIssues = true;
+				console.log(this.loader.getIssues);
 				const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues`;
                 axios.get(url).then((response) => {
                 	this.issues = response.data;
+                }).finally(()=>{
+                	this.loader.getIssues = false;
                 });
                }
 			},
