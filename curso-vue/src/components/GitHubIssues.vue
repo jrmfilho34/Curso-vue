@@ -29,13 +29,8 @@
             </div>
         </div>
         <br><hr><br>
-        <template v-if="selectedIsseu.id">
-        	<h2>{{selectedIsseu.title}}</h2>
-        	<p>{{selectedIsseu.body}}</p>
-            <button @click.prevent.stop="clearIsseu()" class="btn btn-info">Voltar</button>
-        </template>
 
-        <table  v-if=" !selectedIsseu.id" class="table table-sm table-bordered">
+        <table  class="table table-sm table-bordered">
             <thead>
             <tr>
                 <th width="100">Número</th>
@@ -50,9 +45,12 @@
 	            	<tr v-if="!!issues.length && !loader.getIssues"
 	            	v-for="issue in issues"
 	            	:key="issue.number">
-	            		<td><a @click.prevent.stop="getIssue(issue)"
-	            			   href="">{{issue.number}}</a>
-                               <img v-if="issue.is_loading"  src="static\Eclipse.svg">
+	            		<td><router-link :to="{name: 'GitHubIssue',
+	            		                       params:{
+	            			                            name: username,
+	            			                            repo: repository,
+	            			                            issue: issue.number}}">{{issue.number}}
+	            			</router-link>
 	            		</td>
 	            		<td>{{issue.title}}</td>
 	            	</tr>
@@ -74,7 +72,6 @@
                 username:'',
                 repository:'',
                 issues:[],
-                selectedIsseu:{},
                 loader:{
                 	getIssues:false,
                 	getIssue: false,
@@ -98,20 +95,6 @@
 		                });
 	                }
 				},
-				getIssue(issue){
-						if (this.username && this.repository){
-						this.$set(issue,'is_loading',true);
-						const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues/${issue.number}`;
-			                axios.get(url).then((response) => {
-			                	this.selectedIsseu = response.data;
-			                }).finally(()=>{
-			                	this.$set(issue,'is_loading',false);
-			                });
-		                }
-				},
-				clearIsseu(){
-					this.selectedIsseu={};
-				}
 		}
 	};
 </script>
