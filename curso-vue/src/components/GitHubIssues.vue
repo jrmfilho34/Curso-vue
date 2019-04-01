@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
     <div class="container">
         <h1>Vue.js + Github</h1>
@@ -27,10 +28,13 @@
                 </div>
             </div>
         </div>
-
         <br><hr><br>
-
-        <table class="table table-sm table-bordered">
+        <template v-if="selectedIsseu.id">
+        	<h2>{{selectedIsseu.title}}</h2>
+        	<p>{{selectedIsseu.body}}</p>
+            <button @click.prevent.stop="clearIsseu()" class="btn btn-info">Voltar</button>
+        </template>
+        <table  v-if=" !selectedIsseu.id" class="table table-sm table-bordered">
             <thead>
             <tr>
                 <th width="100">Número</th>
@@ -45,7 +49,8 @@
             	<tr v-if="!!issues.length && !loader.getIssues"
             	v-for="issue in issues"
             	:key="issue.number">
-            		<td>{{issue.number}}</td>
+            		<td><a @click.prevent.stop="getIssue(issue.number)"
+            			   href="">{{issue.number}}</a></td>
             		<td>{{issue.title}}</td>
             	</tr>
             <tr v-if="!!!issues.length && !loader.getIssues">
@@ -65,30 +70,45 @@
                 username:'',
                 repository:'',
                 issues:[],
+                selectedIsseu:{},
                 loader:{
                 	getIssues:false,
+                	getIsseu: false,
                 }
 			};
 		},
 		methods:{
-			reset(){
-				this.username = '';
-				this.repository = '';
-			},
+				reset(){
+					this.username = '';
+					this.repository = '';
+				},
 
-			getIssues(){
-				if (this.username && this.repository){
-				this.loader.getIssues = true;
-				console.log(this.loader.getIssues);
-				const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues`;
-                axios.get(url).then((response) => {
-                	this.issues = response.data;
-                }).finally(()=>{
-                	this.loader.getIssues = false;
-                });
-               }
-			},
-		},
+				getIssues(){
+					if (this.username && this.repository){
+					this.loader.getIssues = true;
+					const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues`;
+		                axios.get(url).then((response) => {
+		                	this.issues = response.data;
+		                }).finally(()=>{
+		                	this.loader.getIssues = false;
+		                });
+	                }
+				},
+				getIssue(issueId){
+						if (this.username && this.repository){
+						this.loader.getIssue = true;
+						const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues/${issueId}`;
+			                axios.get(url).then((response) => {
+			                	this.selectedIsseu = response.data;
+			                }).finally(()=>{
+			                	this.loader.getIssue = false;
+			                });
+		                }
+				},
+				clearIsseu(){
+					this.selectedIsseu={};
+				}
+		}
 	};
 </script>
 
